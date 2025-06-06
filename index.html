@@ -1642,7 +1642,30 @@
       {name: "Feldheim", coords: [52.083, 12.533], info: "Erstes energieautarkes Dorf Deutschlands"},
       {name: "Bürgerwindpark", coords: [53.55, 9.0], info: "Gemeinschaftlicher Windpark in Norddeutschland"},
       {name: "Solarstadt Freiburg", coords: [48.0, 7.85], info: "Modellstadt"}];
-       
+        // Deutschlandkarte mit Projekten
+      const deutschlandKarte = L.map('deutschlandkarte').setView([51, 10], 6);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(deutschlandKarte);
+      
+      const projekte = [
+        {name: "Wildpoldsried", coords: [47.766, 10.4], info: "Energieautarkes Dorf in Bayern mit 500% erneuerbarer Energie"},
+        {name: "Feldheim", coords: [52.083, 12.533], info: "Erstes energieautarkes Dorf Deutschlands"},
+        {name: "Bürgerwindpark", coords: [53.55, 9.0], info: "Gemeinschaftlicher Windpark in Norddeutschland"},
+        {name: "Solarstadt Freiburg", coords: [48.0, 7.85], info: "Modellstadt für Solarenergie mit innovativen Konzepten"},
+        {name: "Energiewende Unterallgäu", coords: [48.0, 10.4], info: "Region mit über 100% erneuerbarer Stromerzeugung"}
+      ];
+      
+      projekte.forEach(projekt => {
+        const marker = L.marker(projekt.coords).addTo(deutschlandKarte);
+        marker.bindPopup(`
+          <h4>${projekt.name}</h4>
+          <p>${projekt.info}</p>
+          <button onclick="zoomToProject(${projekt.coords})" style="padding: 5px 10px; background: var(--primary); color: white; border: none; border-radius: 3px; cursor: pointer;">
+            Mehr anzeigen
+          </button>
+        `);
+      });
       
       // Energiedörfer Karte
       const energiedoerferKarte = L.map('energiedoerferKarte').setView([51, 10], 6);
